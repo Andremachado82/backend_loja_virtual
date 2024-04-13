@@ -33,10 +33,14 @@ public class Usuario implements UserDetails {
     private Date dataAtualSenha;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="usuario_acesso",
-            joinColumns = @JoinColumn(name="usuario_id",unique = false, foreignKey = @ForeignKey(name = "usuario_fk",
-                    value = ConstraintMode.CONSTRAINT)),
-            inverseJoinColumns = @JoinColumn(name="acesso_id")
+    @JoinTable(
+            name = "usuario_acesso",
+            uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id", "acesseo_id"},
+                    name = "acesso_unico_usuario"),
+            joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id", table = "usuario",
+                    unique = false, foreignKey = @ForeignKey(name = "usuario_fk", value = ConstraintMode.CONSTRAINT)),
+            inverseJoinColumns = @JoinColumn(name = "acesso_id", referencedColumnName = "id", table = "acesso",
+                    unique = false, foreignKey = @ForeignKey(name = "acesso_fk", value = ConstraintMode.CONSTRAINT))
     )
     private List<Acesso> acessos;
 

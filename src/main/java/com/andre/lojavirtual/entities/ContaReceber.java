@@ -1,6 +1,6 @@
 package com.andre.lojavirtual.entities;
 
-import com.andre.lojavirtual.enums.ETipoEndereco;
+import com.andre.lojavirtual.enums.EStatusContaReceber;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,13 +8,15 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Getter
 @Setter
 @Builder
 @Entity
-@Table(name = "endereco")
-public class Endereco implements Serializable {
+@Table(name = "conta_receber")
+public class ContaReceber implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -23,26 +25,24 @@ public class Endereco implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String logradouro;
+    private String descricao;
 
-    private String cep;
+    @Enumerated(EnumType.STRING)
+    private EStatusContaReceber statusContaReceber;
 
-    private String numero;
+    @Temporal(TemporalType.DATE)
+    private Date dtVencimento;
 
-    private String complemento;
+    @Temporal(TemporalType.DATE)
+    private Date dtPagamento;
 
-    private String bairro;
+    private BigDecimal valorTotal;
 
-    private String cidade;
-
-    private String uf;
+    private BigDecimal valorDesconto;
 
     @ManyToOne(targetEntity = Pessoa.class)
     @JoinColumn(name = "pessoa_id", nullable = false)
     private Pessoa pessoa;
-
-    @Enumerated(EnumType.STRING)
-    private ETipoEndereco ETipoEndereco;
 }
 
 
