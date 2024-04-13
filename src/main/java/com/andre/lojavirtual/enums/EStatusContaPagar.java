@@ -7,11 +7,13 @@ import lombok.ToString;
 @ToString
 public enum EStatusContaPagar {
 
+    ABERTA("Aberta"),
     COBRANCA("Pagar"),
     VENCIDA("Vencida"),
     QUITADA("Quitada"),
-    NEGOCIADA("Renegociada"),
-    ABERTA("Aberta");
+    ALUGUEL("Aluguel"),
+    FUNCIONARIO("Funcionário"),
+    NEGOCIADA("Renegociada");
 
     private final String descricao;
 
